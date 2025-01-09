@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+
+<div class="container mx-auto max-w-lg mt-20 text-center bg-white p-8 rounded-lg shadow-md space-y-6">
+  <h1 class="text-3xl font-semibold" style="font-family: 'Lobster', cursive; color: #e1306c;">
+    Crear Post
+  </h1>
+
+  <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Título del post -->
+    <div class="mb-6">
+      <label for="title" class="block text-left mb-2 text-sm font-medium text-gray-900">Título</label>
+      <input
+        id="title"
+        formControlName="title"
+        type="text"
+        class="bg-white border border-gray-300 rounded-lg p-2.5 w-full text-sm"
+        placeholder="Escribe el título"
+      />
+      <div *ngIf="createPostForm.get('title')?.invalid && createPostForm.get('title')?.touched" class="text-red-500 text-sm">
+        El título es obligatorio y debe tener al menos 5 caracteres.
+      </div>
+    </div>
+
+    <!-- Imagen del post -->
+    <div class="mb-6">
+      <label for="image" class="block text-left mb-2 text-sm font-medium text-gray-900">Imagen (JPG/PNG, máximo 5MB)</label>
+      <input
+        id="image"
+        formControlName="image"
+        type="file"
+        class="bg-white border border-gray-300 rounded-lg p-2.5 w-full text-sm"
+        (change)="onImageChange($event)"
+      />
+      <div *ngIf="createPostForm.get('image')?.invalid && createPostForm.get('image')?.touched" class="text-red-500 text-sm">
+        <div *ngIf="createPostForm.get('image')?.hasError('invalidImageType')">La imagen debe ser JPG o PNG.</div>
+        <div *ngIf="createPostForm.get('image')?.hasError('invalidImageSize')">La imagen no debe pesar más de 5 MB.</div>
+      </div>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="text-red-500 text-sm mb-4">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Botón de envío -->
+    <button
+      type="submit"
+      [disabled]="createPostForm.invalid"
+      class="bg-[#e1306c] text-white font-medium rounded-lg p-2.5 w-full transition-colors duration-200 hover:bg-[#e1306c] disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      Subir Post
+    </button>
+  </form>
+
+  <!-- Mensaje de éxito -->
+  <div *ngIf="successMessage" class="text-green-500 text-sm mt-4">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="text-red-500 text-sm mt-4">
+    {{ errorMessage }}
+  </div>
+</div>

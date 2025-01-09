@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="container mx-auto p-6">
+  <!-- Verificar si la lista de posts está vacía -->
+  <div *ngIf="posts.length === 0" class="text-center text-xl font-bold text-gray-600">
+    No hay posts
+  </div>
+
+  <!-- Mostrar los posts si no está vacía -->
+  <div *ngFor="let post of posts" class="post mb-6">
+    <!-- Contenedor para la imagen y el contenido (título y fecha) -->
+    <div class="flex flex-col items-center w-full">
+      <!-- Imagen: ocupará el 50% del ancho de la pantalla sin límite de altura -->
+      <div class="w-1/2 mx-4">
+        <img
+          class="w-full h-auto"
+          src="{{ post.urlImage }}"
+          alt="{{ post.title }}"
+          onerror="this.src='images (1).png'"
+          style="object-fit: contain;"
+        />
+      </div>
+
+      <!-- Contenedor del título y la fecha debajo de la imagen -->
+      <div class="w-1/2 mx-4 mt-4">
+        <div class="p-5 bg-white rounded-lg shadow-md">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#e1306c]">
+            {{ post.title }}
+          </h5>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            {{ post.publicationDate | date: 'dd/MM/yyyy, h:mm a' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

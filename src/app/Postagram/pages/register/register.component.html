@@ -1,0 +1,53 @@
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="max-w-lg w-full p-6 bg-white shadow-md rounded-lg">
+      <!-- Título "Postagram" -->
+      <h1 class="text-center text-4xl font-semibold text-[#e1306c] mb-6" style="font-family: 'Lobster', cursive;">Postagram</h1>
+  
+      <div class="mb-4">
+        <label for="email" class="block text-left mb-2 text-sm font-medium text-gray-700">Correo Electrónico</label>
+        <input
+          id="email"
+          formControlName="mail"
+          type="email"
+          class="bg-white border border-gray-300 rounded-lg p-2.5 w-full text-sm"
+          placeholder="Ingresa tu correo electrónico"
+        />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm">
+          El correo debe tener un formato válido.
+        </div>
+      </div>
+    
+      <div class="mb-4">
+        <label for="password" class="block text-left mb-2 text-sm font-medium text-gray-700">Contraseña</label>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          class="bg-white border border-gray-300 rounded-lg p-2.5 w-full text-sm"
+          placeholder="Ingresa tu contraseña"
+        />
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-sm">
+          La contraseña debe tener al menos 6 caracteres y un número.
+        </div>
+      </div>
+    
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid"
+        class="bg-[#e1306c] text-white font-medium rounded-lg p-2.5 w-full disabled:bg-gray-300"
+      >
+        Registrarse
+      </button>
+    
+      <div *ngIf="successMessage" class="text-green-500 text-sm mt-4">
+        {{ successMessage }}
+      </div>
+    
+      <div *ngIf="errorMessage" class="text-red-500 text-sm mt-4">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+  
